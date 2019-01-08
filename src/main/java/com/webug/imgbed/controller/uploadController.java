@@ -72,7 +72,6 @@ public class uploadController {
         }
         model.addAttribute("pathList",pathList);
         ossClient.shutdown();
-        System.out.print("长度：" + files.length);
         return "success";
     }
 }
