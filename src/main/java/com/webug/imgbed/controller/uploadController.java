@@ -39,7 +39,7 @@ public class uploadController {
     private String httpPath = "http://webug.oss-cn-beijing.aliyuncs.com/";
 
     @RequestMapping("/upload")
-    public String test(){
+    public String toUploadPage(){
         return "upload";
     }
 

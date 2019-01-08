@@ -31,6 +31,6 @@ upload:
 # 阿里云基本配置
 aliyun:
   config:
-    ossEndPoint: oss-cn-beijing.aliyuncs.com
-    accessKeyId: LTAICMAapTTHmBkF
-    accessKeySecret: Kr7KI4lubP01wwXjl3Qmd8tbk6AkFd
+    ossEndPoint: ***
+    accessKeyId: ***
+    accessKeySecret: ***
