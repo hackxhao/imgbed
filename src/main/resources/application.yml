@@ -1,0 +1,36 @@
+server:
+  port: 8091
+  servlet:
+    context-path: /imgBed
+
+spring:
+  application:
+    name: imgBed
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    cache: false
+    servlet:
+      content-type: text/html
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 10MB
+      max-file-size: 1MB
+
+upload:
+  path: E://imgs//
+
+# 阿里云基本配置
+aliyun:
+  config:
+    ossEndPoint: oss-cn-beijing.aliyuncs.com
+    accessKeyId: LTAICMAapTTHmBkF
+    accessKeySecret: Kr7KI4lubP01wwXjl3Qmd8tbk6AkFd

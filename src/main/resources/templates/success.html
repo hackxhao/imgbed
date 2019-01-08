@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>上传成功页</title>
+</head>
+<body>
+    <h1>上传成功！</h1>
+    <ul>
+        <li  th:each="temp:${pathList}">
+            <span th:text="${temp.imagePath}"></span>
+        </li>
+    </ul>
+</body>
+</html>
