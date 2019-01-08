@@ -29,8 +29,6 @@ public class uploadController {
 
     private static final Logger logger = LoggerFactory.getLogger(uploadController.class);
 
-    private OSSClient ossClient = AliOSSUtil.getOSSClient();
-
     //文件存储目录
     private String filedir = "imgBed/";
     // bucket名称
@@ -45,6 +43,7 @@ public class uploadController {
 
     @RequestMapping("/batchUpload")
     public String batchUpload(@RequestParam(value="file") MultipartFile[] files,Model model) throws IOException {
+        OSSClient ossClient = AliOSSUtil.getOSSClient();
         List<Map<String, Object>> pathList = new ArrayList<>();
         for (int i = 0; i < files.length; i++) {
             Map<String, Object> pathData = new HashMap<String, Object>();
