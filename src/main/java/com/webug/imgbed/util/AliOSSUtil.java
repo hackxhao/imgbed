@@ -140,7 +140,8 @@ public class AliOSSUtil {
             ObjectListing objectListing = ossClient.listObjects(bucketName);
             // objectListing.getObjectSummaries获取所有文件的描述信息。
             for (OSSObjectSummary objectSummary : objectListing.getObjectSummaries()) {
-                results.add(" - " + objectSummary.getKey() + "  " + "(size = " + objectSummary.getSize() + ")");
+                // objectSummary.getSize();
+                results.add(objectSummary.getKey());
             }
         } catch (Exception e) {
             e.printStackTrace();

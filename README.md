@@ -1,5 +1,13 @@
-# 项目简介
-迫于没有找到较为稳定的图床网站...只好自己搭建一个了...
+### SpringBoot+阿里云OSS图床项目
 
-### TODO
-接入七牛云、腾讯云进行URL分发保证稳定性！！！
+从 Github 上下载
+
+```shell
+git clone https://github.com/hackxhao/imgbed.git
+```
+
+#### Todo
+- 接入腾讯云、又拍云等接口进行图片分发同步
+- [x] 添加水印
+- [x] 优化页面
+

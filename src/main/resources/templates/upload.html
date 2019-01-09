@@ -3,14 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <title>webug - 图床</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body>
-    <div>
-        <form method="POST" enctype="multipart/form-data" action="/imgBed/batchUpload">
-            <p>文件1：<input type="file" name="file" /></p>
-            <p>文件2：<input type="file" name="file" /></p>
-            <p><input type="submit" value="上传" /></p>
+<body style="width: 100%">
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">WeBug图床项目</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">关于</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+
+    <blockquote style="width: 50%; margin: 0 auto;margin-bottom: 20px">
+        <p>对象存储图床</p>
+        <footer>不限流量 无限外链 永久免费</footer>
+    </blockquote>
+
+    <div class="alert alert-danger" style="width: 50%; margin: 0 auto;margin-bottom: 20px" role="alert">注意：请勿上传隐私图片,最大支持2M</div>
+
+    <div style="width: 50%; margin: 0 auto;margin-bottom: 10px">
+        <form method="POST" id="fileForm" class="form-inline" enctype="multipart/form-data">
+            <!--<p><input class="btn btn-primary" type="file" name="file" multiple="multiple"/></p>-->
+            <div>
+                <input id="file" type="file" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" onchange="showFileName()" name="file" multiple="multiple" style="display:none">
+                <div><input type="text" style="width: 85%" class="form-control" id="showName" /><label for="file" id="fileText" class="btn btn-default">选择文件</label></div>
+            </div>
+            <br/>
+            <input class="btn btn-success" type="button" id="uploadBtn" value="开始上传" onclick="upload_files()"/>
         </form>
     </div>
+
+    <div style="width: 50%; margin: 20px auto;margin-bottom: 20px">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="#url" data-toggle="tab">
+                    URL
+                </a>
+            </li>
+            <li><a href="#html" data-toggle="tab">HTML</a></li>
+            <li><a href="#markdown" data-toggle="tab">MarkDown</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="url">
+            </div>
+            <div class="tab-pane fade" id="html">
+                <textarea id="imgPath" style="width: 100%;min-height: 180px;"></textarea>
+            </div>
+            <div class="tab-pane fade" id="markdown">
+            </div>
+        </div>
+    </div>
+
+<script>
+    function showFileName(){
+        var filePaths = $("#file")[0].files;
+        var fileList = new Array();
+        for( var i=0;i<filePaths.length; i++ ){
+            fileList.push(filePaths[i].name);
+        }
+        $("#showName").val(fileList);
+    }
+
+    function getFileName(e){
+        var pos = e.lastIndexOf("\\");
+        return e.substring(pos+1);
+    }
+
+    function imgSplice(type,url){
+        var completePath;
+        if("html" == type){
+            completePath = "<img src=" + url + ">";
+        }
+        if("markdown" == type){
+            completePath = "![](" + url + "]"
+        }
+        return completePath;
+    }
+
+    function upload_files() {
+        var formData = new FormData($("#fileForm")[0]);
+        $.ajax({
+            url: "/imgBed/batchUpload",
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if(data.rspCode == "000"){
+                    alert(data.rspMsg);
+                    $.each(data.rspData.dataList, function(i, item) {
+                        var imgPath = imgSplice("html",item.imagePath);
+                        var markdownPath = imgSplice("markdown",item.imagePath);
+                        $("#url").append(
+                            "<div class=\"alert alert-info\" role=\"alert\">" + item.imagePath +
+                            "</div>"
+                        );
+                        document.getElementById('imgPath').value += imgPath +'\r\n';
+                        $("#markdown").append(
+                            "<div class=\"alert alert-info\" role=\"alert\">" + markdownPath +
+                            "</div>"
+                        );
+                    })
+                }else{
+                    alert(data.rspMsg);
+                }
+            },
+            error: function (data) {
+                alert("失败了！" + JSON.stringify(data));
+            }
+        });
+    }
+</script>
 </body>
 </html>
