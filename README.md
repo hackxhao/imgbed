@@ -43,4 +43,6 @@ private String httpPath = "***";
 ![](http://webug.oss-cn-beijing.aliyuncs.com/imgBed/QQ截图20190109185254.png)
 
 
-
+#### 最新更新
+- 通过SessionId进行简单的文件重复校验
+- 优化调整页面

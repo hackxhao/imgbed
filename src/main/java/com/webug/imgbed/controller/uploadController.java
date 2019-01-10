@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
@@ -39,13 +41,26 @@ public class uploadController {
 
     @RequestMapping("/batchUpload")
     @ResponseBody
-    public RspEntity batchUpload(@RequestParam(value="file") MultipartFile[] files) throws IOException {
+    public RspEntity batchUpload(@RequestParam(value="file") MultipartFile[] files,HttpServletRequest request) throws IOException {
         RspEntity rspEntity = new RspEntity();
+        HttpSession session = request.getSession();
         OSSClient ossClient = AliOSSUtil.getOSSClient();
+        List<String> fileNameList = new ArrayList<>();
         List<Map<String, Object>> pathList = new ArrayList<>();
+        for (int i = 0; i < files.length; i++) {
+            MultipartFile file = files[i];
+            fileNameList.add(file.getOriginalFilename());
+        }
+        if(!checkSessionFile(session,fileNameList)){
+            logger.error("您上传的文件已存在");
+            rspEntity.setRspCode("999");
+            rspEntity.setRspMsg("您上传的文件至少有一张已存在，请去除后重新上传");
+            return rspEntity;
+        }
         for (int i = 0; i < files.length; i++) {
             Map<String, Object> pathData = new HashMap<String, Object>();
             MultipartFile file = files[i];
+            fileNameList.add(file.getOriginalFilename());
             String fileType = file.getContentType();
             if(StringUtils.isEmpty(file.getOriginalFilename())){
                 logger.error("请选择文件");
@@ -81,6 +96,7 @@ public class uploadController {
             pathData.put("imagePath",HTTP_PATH + FILE_DIR + fileName);
             pathList.add(pathData);
         }
+        session.setAttribute(session.getId(),fileNameList);
         if(pathList.size() > 0){
             Map<String, Object> rspData = new HashMap<String, Object>();
             rspData.put("dataList",pathList);
@@ -92,5 +108,25 @@ public class uploadController {
             rspEntity.setRspMsg("上传失败！！！");
         }
         return rspEntity;
+    }
+
+    /**
+     * 通过sessionId进行校验文件是否存在
+     * @param session
+     * @param fileList
+     * @return
+     */
+    public Boolean checkSessionFile(HttpSession session,List<String> fileList) {
+        List<String> fileNameList = (List) session.getAttribute(session.getId());
+        if (null != fileNameList && fileNameList.size() > 0) {
+            for (String fileName : fileNameList) {
+                for (String file : fileList) {
+                    if (fileName.equals(file)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }
