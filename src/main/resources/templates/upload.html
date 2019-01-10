@@ -26,12 +26,29 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">关于</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#myModal">关于</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
     </header>
+
+    <!-- 模态框start -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">关于</h4>
+                </div>
+                <div class="modal-body">
+                    <div>希望您能合理使用公共资源，资源浪费！</div>
+                    <div>项目地址：<a href="https://github.com/hackxhao/imgbed">imgBed</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 模态框end -->
 
     <blockquote style="width: 50%; margin: 0 auto;margin-bottom: 20px">
         <p>对象存储图床</p>
@@ -41,18 +58,17 @@
     <div class="alert alert-danger" style="width: 50%; margin: 0 auto;margin-bottom: 20px" role="alert">注意：请勿上传隐私图片,最大支持2M</div>
 
     <div style="width: 50%; margin: 0 auto;margin-bottom: 10px">
-        <form method="POST" id="fileForm" class="form-inline" enctype="multipart/form-data">
-            <!--<p><input class="btn btn-primary" type="file" name="file" multiple="multiple"/></p>-->
+        <form method="POST" id="fileForm" class="form-inline">
             <div>
                 <input id="file" type="file" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" onchange="showFileName()" name="file" multiple="multiple" style="display:none">
                 <div><input type="text" style="width: 85%" class="form-control" id="showName" /><label for="file" id="fileText" class="btn btn-default">选择文件</label></div>
             </div>
             <br/>
-            <input class="btn btn-success" type="button" id="uploadBtn" value="开始上传" onclick="upload_files()"/>
+            <button class="btn btn-success" type="button" id="uploadBtn" onclick="upload_files()">开始上传</button>
         </form>
     </div>
 
-    <div style="width: 50%; margin: 20px auto;margin-bottom: 20px">
+        <div style="width: 50%; margin: 20px auto;margin-bottom: 20px">
         <ul id="myTab" class="nav nav-tabs">
             <li class="active">
                 <a href="#url" data-toggle="tab">
