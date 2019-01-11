@@ -5,6 +5,7 @@
 ```shell
 git clone https://github.com/hackxhao/imgbed.git
 ```
+##### 在线体验：[演示地址](http://39.106.117.123:8080/imgBed/upload/)
 
 #### 快速运行
 ##### 准备工作
@@ -36,8 +37,6 @@ private String httpPath = "***";
 #### Todo
 - 添加水印
 - 优化页面
-- 增加文件重复校验
-- 增加Gitalk插件
 
 #### 演示图
 ![](http://webug.oss-cn-beijing.aliyuncs.com/imgBed/QQ截图20190109185254.png)
