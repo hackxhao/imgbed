@@ -30,7 +30,7 @@ public class uploadController {
     // bucket名称
     private static final String BUCKET_NAME = "webug";
     // 外网访问http头
-    private static final String HTTP_PATH = "http://webug.oss-cn-beijing.aliyuncs.com/";
+    private static final String HTTP_PATH = "https://webug.oss-cn-beijing.aliyuncs.com/";
 
     private static final String FILE_EXTENSION = ".png";
 
