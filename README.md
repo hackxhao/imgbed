@@ -39,7 +39,7 @@ private String httpPath = "***";
 - 优化页面
 
 #### 演示图
-![](http://webug.oss-cn-beijing.aliyuncs.com/imgBed/QQ截图20190109185254.png)
+![](https://webug.oss-cn-beijing.aliyuncs.com/imgBed/20190111025700461.png)
 
 
 #### 最新更新
