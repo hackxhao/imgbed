@@ -3,7 +3,7 @@ package com.webug.imgbed.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class imgBedUtil {
+public class IMGBedUtil {
     /**
      * 获取当前日期或者时间
      * @param format
