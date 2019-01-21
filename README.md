@@ -51,3 +51,9 @@ private String httpPath = "***";
 - 通过SessionId进行简单的文件重复校验
 - 优化调整页面
 - 接入新浪图床进行图片分发
+
+
+#### 鸣谢
+- [wbp4j](https://github.com/echisan/wbp4j)
+新浪图床依赖，使用方便简单
+cookie过期自动登录
