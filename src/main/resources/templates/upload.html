@@ -51,11 +51,15 @@
     </div>
     <!-- 模态框end -->
     <blockquote style="width: 50%; margin: 0 auto;margin-bottom: 20px">
-        <p>对象存储图床</p>
+        <p>WeBug图床项目</p>
         <footer>免费 稳定 支持https</footer>
     </blockquote>
 
-    <div class="alert alert-danger" style="width: 50%; margin: 0 auto;margin-bottom: 20px" role="alert">注意：请勿上传隐私图片,最大支持2M</div>
+    <div class="alert alert-danger" style="width: 50%; margin: 0 auto;margin-bottom: 20px" role="alert">
+        注意：请勿上传隐私图片,最大支持2M,
+        <br/>
+        <span>目前已接入新浪图床进行图片分发,建议优先使用新浪链接。</span>
+    </div>
 
     <div style="width: 50%; margin: 0 auto;margin-bottom: 10px">
         <form method="POST" id="fileForm" class="form-inline">
@@ -128,11 +132,24 @@
             success: function (data) {
                 if(data.rspCode == "000"){
                     alert(data.rspMsg);
-                    $.each(data.rspData.dataList, function(i, item) {
-                        var imgPath = imgSplice("html",item.imagePath);
-                        var markdownPath = imgSplice("markdown",item.imagePath);
+                    $.each(data.rspData.data.aliOssPathList, function(i, item) {
+                        var imgPath = imgSplice("html",item);
+                        var markdownPath = imgSplice("markdown",item);
                         $("#url").append(
-                            "<div class=\"alert alert-info\" role=\"alert\">" + item.imagePath +
+                            "<div class=\"alert alert-info\" role=\"alert\">" + item +
+                            "</div>"
+                        );
+                        document.getElementById('imgPath').value += imgPath +'\r\n';
+                        $("#markdown").append(
+                            "<div class=\"alert alert-info\" role=\"alert\">" + markdownPath +
+                            "</div>"
+                        );
+                    });
+                    $.each(data.rspData.data.sinaPathList, function(i, item) {
+                        var imgPath = imgSplice("html",item);
+                        var markdownPath = imgSplice("markdown",item);
+                        $("#url").append(
+                            "<div class=\"alert alert-info\" role=\"alert\">" + item +
                             "</div>"
                         );
                         document.getElementById('imgPath').value += imgPath +'\r\n';

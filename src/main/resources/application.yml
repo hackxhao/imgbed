@@ -34,3 +34,8 @@ aliyun:
     ossEndPoint: ***
     accessKeyId: ***
     accessKeySecret: ***
+
+# 新浪账号配置
+sina:
+  username: ***
+  password: ***

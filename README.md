@@ -21,6 +21,10 @@ aliyun:
     ossEndPoint: 您自己的地域节点
     accessKeyId: 您阿里云的accessKeyId
     accessKeySecret: 您阿里云的accessKeyId
+    
+sina:
+  username: 您的新浪账户名称
+  password：您的新浪账号密码
 ```
 uploadController.java
 ```shell
@@ -35,8 +39,9 @@ private String httpPath = "***";
 
 
 #### Todo
-- 添加水印
 - 优化页面
+- 增加鉴黄接口（如果找到免费接口的话）
+- 增加其他免费图床接口进行图片分发
 
 #### 演示图
 ![](https://webug.oss-cn-beijing.aliyuncs.com/imgBed/20190111025700461.png)
@@ -45,3 +50,4 @@ private String httpPath = "***";
 #### 最新更新
 - 通过SessionId进行简单的文件重复校验
 - 优化调整页面
+- 接入新浪图床进行图片分发
