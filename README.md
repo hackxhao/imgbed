@@ -51,6 +51,7 @@ private String httpPath = "***";
 - 通过SessionId进行简单的文件重复校验
 - 优化调整页面
 - 接入新浪图床进行图片分发
+- 加入docker化部署方案 具体部署文档见：[文档](src/main/doc/docker部署.md)
 
 
 #### 鸣谢
